@@ -16,8 +16,9 @@
 ##
 ## This function creates a special "matrix" object that can cache its inverse.
 makeCacheMatrix <- function(x = matrix()) {
-  ## this is requred to check if the matrix has changed
   
+  #dataMatrix - matric to be inversed
+  #invMatrix - inverce matric  
   dataMatrix <<- x
   invMatrix <<- NULL
   
@@ -84,8 +85,8 @@ cacheSolve <- function(x, ...) {
 ## b) less prone to invalid call errors
 
 makeSimpleCacheMatrix <- function(x = matrix()) {
-  #md - matric to be inversed
-  #mi - inverce matric
+  #dataMatrix - matric to be inversed
+  #invMatrix - inverce matric
   dataMatrix <<- x
   invMatrix <<- tryCatch({
     solve(x)

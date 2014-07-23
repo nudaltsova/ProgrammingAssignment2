@@ -49,6 +49,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## calculate matrix inv and cache it
 cacheSolve <- function(x, ...) {
   
+  # see if inverce has been cached already
   mi = tryCatch({
     x$getSolve()
   }, error = function(e) {
@@ -60,12 +61,15 @@ cacheSolve <- function(x, ...) {
     return(mi)
   }
     
+  # get data (try to, will fail in case of invali params)
   md = tryCatch({
     x$getData()
   },error = function(e) {
     stop("x is of wrong type, use makeCacheMatrix")
   })
   
+  # try to solve; 
+  # matrix might be not square or non-inversable (see test example below)
   mi = tryCatch({
     solve(md)
   },error = function(e) {
@@ -73,7 +77,7 @@ cacheSolve <- function(x, ...) {
     stop("could not inverse matric")
   })
   
-  x$setData(md)
+  # remember result
   x$setSolve(mi)
   mi
   
